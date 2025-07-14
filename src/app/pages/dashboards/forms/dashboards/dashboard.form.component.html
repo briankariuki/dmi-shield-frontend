@@ -1,0 +1,118 @@
+<form [formGroup]="dashboardForm" (ngSubmit)="onFormSubmit()">
+  <div style="margin-top: 24px; margin-bottom: 24px; display: flex">
+    <div style="flex: 2 1 0%">
+      <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+        >Dashboard Name</mat-label
+      >
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label>Name</mat-label>
+
+        <input matInput placeholder="" formControlName="name" />
+
+        <mat-error *ngIf="dashboardForm.get('name').hasError('required')">
+          Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; margin-bottom: 24px; display: flex">
+    <div style="flex: 2 1 0%">
+      <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+        >Dashboard Description</mat-label
+      >
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label>Description</mat-label>
+
+        <textarea matInput placeholder="" formControlName="description">
+        </textarea>
+
+        <mat-error
+          *ngIf="dashboardForm.get('description').hasError('required')"
+        >
+          Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; margin-bottom: 24px; display: flex">
+    <div style="flex: 1 1 0%; margin-right: 24px">
+      <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+        >Superset Domain</mat-label
+      >
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label>Domain</mat-label>
+
+        <input matInput placeholder="" formControlName="domain" />
+
+        <mat-error *ngIf="dashboardForm.get('domain').hasError('required')">
+          Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div style="flex: 1 1 0%">
+      <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+        >Superset Dashboard Id</mat-label
+      >
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label>Dashboard ID</mat-label>
+
+        <input matInput placeholder="" formControlName="dashboardId" />
+
+        <mat-error
+          *ngIf="dashboardForm.get('dashboardId').hasError('required')"
+        >
+          Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; margin-bottom: 24px; display: flex">
+    <div style="flex: 1 1 0%; margin-right: 24px">
+      <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+        >Dashboard Group</mat-label
+      >
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label>Group</mat-label>
+
+        <mat-select formControlName="groupId">
+          <mat-option [value]="group" *ngFor="let group of groups">{{
+            group
+          }}</mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="dashboardForm.get('groupId').hasError('required')">
+          Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div style="flex: 1 1 0%">
+      <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+        >Authorized User Roles</mat-label
+      >
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label>Roles</mat-label>
+
+        <mat-select multiple formControlName="roles">
+          <mat-option [value]="role" *ngFor="let role of roles">{{
+            role
+          }}</mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="dashboardForm.get('roles').hasError('required')">
+          Required
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: flex-end">
+    <button type="submit" mat-flat-button color="primary" class="view-button">
+      {{ buttonLabel }} Dashboard
+    </button>
+  </div>
+</form>

@@ -196,7 +196,7 @@ export class ModifyComponent implements OnInit {
                         this.ApiResponseStatus.processing = false;
                         this.ApiResponseStatus.success = false;
                         this.communication.showToast(
-                          'File upload failed. Kindly try again.',
+                          'File upload failed. Please again.',
                         );
                         throw new Error(error);
                       },
@@ -208,7 +208,7 @@ export class ModifyComponent implements OnInit {
                 this.ApiResponseStatus.processing = false;
                 this.ApiResponseStatus.success = false;
                 this.communication.showToast(
-                  'File upload failed. Kindly try again.',
+                  'File upload failed. Please again.',
                 );
               },
               complete: () => {},

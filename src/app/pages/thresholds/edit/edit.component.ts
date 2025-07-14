@@ -114,9 +114,7 @@ export class EditComponent implements OnInit {
         this.ApiResponseStatus.processing = false;
         this.ApiResponseStatus.success = false;
 
-        this.communication.showToast(
-          'Threshold update failed. Kindly try again.',
-        );
+        this.communication.showToast('Threshold update failed. Please again.');
       },
       complete: () => {},
     });
@@ -167,9 +165,7 @@ export class EditComponent implements OnInit {
         this.ApiResponseStatus.processing = false;
         this.ApiResponseStatus.success = false;
 
-        this.communication.showToast(
-          'Threshold update failed. Kindly try again.',
-        );
+        this.communication.showToast('Threshold update failed. Please again.');
       },
       complete: () => {},
     });

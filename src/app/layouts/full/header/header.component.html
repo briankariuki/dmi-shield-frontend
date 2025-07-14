@@ -211,6 +211,15 @@
           >
             Manage Users
           </button>
+
+          <button
+            mat-menu-item
+            [routerLink]="['/dashboards/groups/']"
+            *ngIf="userRole === 'admin'"
+          >
+            Manage Dashboard Groups
+          </button>
+
           <!--        <button mat-menu-item [routerLink]="['/thresholds/composites']" *ngIf="userRole === 'admin'">Set Thresholds</button>-->
           <button mat-menu-item (click)="signOut()">Sign Out</button>
         </mat-menu>

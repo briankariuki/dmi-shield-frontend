@@ -104,7 +104,7 @@ export class CompositeComponent implements OnInit {
         this.ApiResponseStatus.processing = false;
         this.ApiResponseStatus.success = false;
 
-        this.communication.showToast('Something went wrong. Kindly try again.');
+        this.communication.showToast('Something went wrong. Please again.');
       },
       complete: () => {
         this.ApiResponseStatus.processing = false;

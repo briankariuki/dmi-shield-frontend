@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { AwarenessService } from '../../../services/awareness.service';
-import { ApiService } from '../../../services/api/api.service';
-import { ApiResponseStatus } from '../../../interfaces/IAuth.model';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../../services/authentication.service';
-import { Threshold } from 'src/app/interfaces/IThreshold.model';
 import { CommunicationService } from 'src/app/services/communication.service';
 import { debounceTime, Subject } from 'rxjs';
 import { Page } from 'src/app/interfaces/IPage.Model';
 import { PageEvent } from '@angular/material/paginator';
+import { ApiResponseStatus } from 'src/app/interfaces/IAuth.model';
+import { DashboardGroup } from 'src/app/interfaces/IDashboard.model';
+import { ApiService } from 'src/app/services/api/api.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AwarenessService } from 'src/app/services/awareness.service';
 
 @Component({
-  selector: 'thresholds-composites',
-  templateUrl: './composite.component.html',
+  selector: 'dashboard-groups',
+  templateUrl: './dashboard_groups.component.html',
 })
-export class CompositeComponent implements OnInit {
-  thresholds: Threshold[] = [];
-  filteredThresholds: Threshold[] = [];
+export class DashboardGroupsComponent implements OnInit {
+  dashboardGroups: DashboardGroup[] = [];
   userRole: string;
   latestSearchTerm: string = '';
   page: Page = {
@@ -55,10 +54,10 @@ export class CompositeComponent implements OnInit {
       },
     });
 
-    this.loadComposites();
+    this.loadDashboardGroups();
 
     this.searchQuery$.pipe(debounceTime(500)).subscribe((term) => {
-      this.loadComposites({ searchQuery: term });
+      this.loadDashboardGroups({ searchQuery: term });
     });
   }
 
@@ -68,12 +67,7 @@ export class CompositeComponent implements OnInit {
     this.searchQuery$.next(term);
   }
 
-  filterClientSide(items: any[], term: string): any[] {
-    const lowerTerm = term.toLowerCase();
-    return items.filter((item) => item.name.toLowerCase().includes(lowerTerm));
-  }
-
-  loadComposites({
+  loadDashboardGroups({
     searchQuery = null,
     page = null,
   }: { searchQuery?: string; page?: string } = {}) {
@@ -83,21 +77,21 @@ export class CompositeComponent implements OnInit {
     let url = '';
 
     if (searchQuery) {
-      url = `thresholds?user_id=${userData.id}&sort=-created_at&page[limit]=${this.page.limit}&filter[name_matches][input][search]=${searchQuery}`;
+      url = `dashboard-groups?user_id=${userData.id}&sort=-created_at&page[limit]=${this.page.limit}&filter[name_matches][input][search]=${searchQuery}`;
     } else if (page === 'next') {
       let temp = this.page.next.split('?')[1];
-      url = `thresholds?${temp}`;
+      url = `dashboard-groups?${temp}`;
     } else if (page === 'prev') {
       let temp = this.page.prev.split('?')[1];
-      url = `thresholds?${temp}`;
+      url = `dashboard-groups?${temp}`;
     } else {
-      url = `thresholds?user_id=${userData.id}&sort=-created_at&page[limit]=${this.page.limit}`;
+      url = `dashboard-groups?user_id=${userData.id}&sort=-created_at&page[limit]=${this.page.limit}`;
     }
 
     this.apiService.get(url).subscribe({
       next: (res) => {
-        this.thresholds = res.data.map((item) => {
-          return { ...item.attributes, ...{ id: item.id } } as Threshold;
+        this.dashboardGroups = res.data.map((item) => {
+          return { ...item.attributes, ...{ id: item.id } } as DashboardGroup;
         });
 
         this.page = {
@@ -122,20 +116,22 @@ export class CompositeComponent implements OnInit {
     });
   }
 
-  deleteThreshold(id: string) {
+  deleteDashboardGroup(id: string) {
     this.ApiResponseStatus.processing = true;
 
-    this.apiService.deleteRequest(`thresholds/${id}`).subscribe({
+    this.apiService.deleteRequest(`dashboard-groups/${id}`).subscribe({
       next: (_) => {
-        this.communication.showToast('Threshold deleted succesfully');
-        this.thresholds = this.thresholds.filter((item) => item.id !== id);
+        this.communication.showToast('DashboardGroup deleted succesfully');
+        this.dashboardGroups = this.dashboardGroups.filter(
+          (item) => item.id !== id,
+        );
       },
       error: (_) => {
         this.ApiResponseStatus.processing = false;
         this.ApiResponseStatus.success = false;
 
         this.communication.showToast(
-          'Failed to delete threshold. Please again.',
+          'Failed to delete dashboardGroup. Please again.',
         );
       },
       complete: () => {
@@ -152,15 +148,15 @@ export class CompositeComponent implements OnInit {
   onPageChanged(event: PageEvent) {
     if (event.pageSize != this.page.limit) {
       this.page.limit = event.pageSize;
-      this.loadComposites();
+      this.loadDashboardGroups();
 
       return;
     }
 
     if (event.pageIndex > event.previousPageIndex) {
-      this.loadComposites({ page: 'next' });
+      this.loadDashboardGroups({ page: 'next' });
     } else if (event.previousPageIndex > event.pageIndex) {
-      this.loadComposites({ page: 'prev' });
+      this.loadDashboardGroups({ page: 'prev' });
     }
   }
 }

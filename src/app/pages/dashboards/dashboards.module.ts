@@ -8,6 +8,12 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { DashboardsComponent } from './dashboards.component';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { DashboardsRoutes } from './dashboards.routing';
+import { DashboardGroupItemComponent } from './index/dashboard_groups/item/dashboard_group.item.component';
+import { DashboardGroupFormComponent } from './forms/dashboard_groups/dashboard_group.form.component';
+import { DashboardGroupsComponent } from './index/dashboard_groups/dashboard_groups.component';
+import { CreateDashboardGroupComponent } from './create/dashboard_group/create_dashboard_group.component';
+import { CreateDashboardComponent } from './create/dashboard/create_dashboard.component';
+import { DashboardFormComponent } from './forms/dashboards/dashboard.form.component';
 
 @NgModule({
   imports: [
@@ -20,6 +26,14 @@ import { DashboardsRoutes } from './dashboards.routing';
     NgxFileDropModule,
     MdbCarouselModule,
   ],
-  declarations: [DashboardsComponent],
+  declarations: [
+    DashboardsComponent,
+    DashboardGroupFormComponent,
+    DashboardFormComponent,
+    DashboardGroupItemComponent,
+    DashboardGroupsComponent,
+    CreateDashboardGroupComponent,
+    CreateDashboardComponent,
+  ],
 })
 export class DashboardsModule {}

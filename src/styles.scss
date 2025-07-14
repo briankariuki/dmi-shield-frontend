@@ -214,7 +214,7 @@ mat-error {
 }
 
 .nav-shield {
-  width: 500px;
+  width: 400px;
   height: 80px;
   flex-shrink: 0;
   margin-left: 46px;
@@ -224,6 +224,7 @@ mat-error {
 .navbar {
   display: flex;
   align-items: center;
+  justify-content: space-around;
   top: 100%;
   left: -100%;
   width: 100%;
@@ -264,12 +265,12 @@ mat-error {
   position: relative;
   align-items: center;
   display: inline-flex;
-  justify-content: space-between;
   font-size: 1.7rem;
   color: var(--main-bg-color);
   text-decoration: none;
   font-weight: 700;
-  margin-left: 8.5rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
   transition: 0.3s;
 }
 

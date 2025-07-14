@@ -1,0 +1,44 @@
+<mat-card class="b-1 shadow-none view-card">
+  <mat-card-header>
+    <mat-card-title>
+      <h3>
+        {{ dashboardGroup.name }}
+      </h3>
+    </mat-card-title>
+
+    <mat-card-subtitle style="margin-top: 8px">
+      <p>
+        {{ dashboardGroup.name }}
+      </p>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-divider style="margin: 8px 8px"></mat-divider>
+
+  <mat-card-content>
+    <mat-card-subtitle style="margin-left: 8px; padding-top: 4px">
+      <p style="font-size: 15px">{{ dashboardGroup.description }}</p>
+    </mat-card-subtitle>
+  </mat-card-content>
+
+  <mat-divider></mat-divider>
+
+  <div style="display: flex; justify-content: flex-end; margin: 8px 8px">
+    <a
+      mat-flat-button
+      color="primary"
+      class="view-button view-float--right"
+      [routerLink]="['/dashboards/groups/edit/', dashboardGroup.id]"
+    >
+      Edit Dashboard Group
+    </a>
+    <a
+      mat-flat-button
+      color="warn"
+      class="view-button view-float--right"
+      (click)="onDeleteDashboardGroup(dashboardGroup.id)"
+    >
+      Delete Dashboard Group
+    </a>
+  </div>
+</mat-card>

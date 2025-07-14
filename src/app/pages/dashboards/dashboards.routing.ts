@@ -1,21 +1,45 @@
 import { Routes } from '@angular/router';
 import { DashboardsComponent } from './dashboards.component';
 import { AuthGuard } from '../../services/authentication.service';
+import { CreateDashboardGroupComponent } from './create/dashboard_group/create_dashboard_group.component';
+import { DashboardGroupsComponent } from './index/dashboard_groups/dashboard_groups.component';
+import { CreateDashboardComponent } from './create/dashboard/create_dashboard.component';
 
 export const DashboardsRoutes: Routes = [
   {
     path: '',
     children: [
+      // {
+      //   path: '',
+      //   component: DashboardsComponent,
+      // },
+
       {
-        path: '',
-        component: DashboardsComponent,
-      },
-      {
-        path: ':id',
+        path: 'groups',
         canActivate: [AuthGuard],
-        data: { roles: ['level1', 'level2', 'admin'] },
-        component: DashboardsComponent,
+        data: { roles: ['admin'] },
+        component: DashboardGroupsComponent,
       },
+      {
+        path: 'groups/create',
+        canActivate: [AuthGuard],
+        data: { roles: ['admin'] },
+        component: CreateDashboardGroupComponent,
+      },
+
+      {
+        path: 'create',
+        canActivate: [AuthGuard],
+        data: { roles: ['admin'] },
+        component: CreateDashboardComponent,
+      },
+
+      // {
+      //   path: ':id',
+      //   canActivate: [AuthGuard],
+      //   data: { roles: ['level1', 'level2', 'admin'] },
+      //   component: DashboardsComponent,
+      // },
     ],
   },
 ];
