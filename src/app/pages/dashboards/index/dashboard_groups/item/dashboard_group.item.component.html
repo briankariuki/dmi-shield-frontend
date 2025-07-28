@@ -6,21 +6,68 @@
       </h3>
     </mat-card-title>
 
-    <mat-card-subtitle style="margin-top: 8px">
+    <mat-card-subtitle style="margin-top: 16px">
       <p>
-        {{ dashboardGroup.name }}
+        {{ dashboardGroup.description }}
       </p>
     </mat-card-subtitle>
   </mat-card-header>
 
-  <mat-divider style="margin: 8px 8px"></mat-divider>
+  <mat-divider style="margin-top: 8px"></mat-divider>
 
-  <mat-card-content>
-    <mat-card-subtitle style="margin-left: 8px; padding-top: 4px">
-      <p style="font-size: 15px">{{ dashboardGroup.description }}</p>
-    </mat-card-subtitle>
-  </mat-card-content>
+  <mat-expansion-panel class="shadow-none">
+    <mat-expansion-panel-header>
+      <mat-panel-title style="margin-bottom: 2px"> Dashboards </mat-panel-title>
+    </mat-expansion-panel-header>
 
+    <div
+      style="
+        margin: 4px 4px;
+        padding: 12px 16px;
+        background-color: #f7f7f7;
+        border-radius: 8px;
+      "
+    >
+      <div
+        *ngFor="let dashboard of dashboardGroup.dashboards"
+        style="color: #3d3d3d"
+      >
+        <mat-card-title style="margin-top: 8px; color: #3d3d3d">
+          <p>
+            {{ dashboard.name }}
+          </p>
+        </mat-card-title>
+
+        <p style="color: #3d3d3d; margin-top: 4px">
+          {{ dashboard.description }}
+        </p>
+
+        <div style="display: flex; justify-content: flex-end">
+          <a
+            mat-flat-button
+            color="primary"
+            class="view-button view-float--right"
+            [routerLink]="['/dashboards/groups/edit/', dashboard.id]"
+          >
+            Edit Dashboard
+          </a>
+
+          <a
+            mat-stroked-button
+            color="primary"
+            class="view-button view-float--right"
+            [routerLink]="['/dashboards/view/', dashboard.id]"
+          >
+            View Dashboard
+
+            <mat-icon>
+              <i-tabler name="external-link" class="icon-14"></i-tabler>
+            </mat-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
   <mat-divider></mat-divider>
 
   <div style="display: flex; justify-content: flex-end; margin: 8px 8px">
@@ -30,7 +77,7 @@
       class="view-button view-float--right"
       [routerLink]="['/dashboards/groups/edit/', dashboardGroup.id]"
     >
-      Edit Dashboard Group
+      Edit Group
     </a>
     <a
       mat-flat-button
@@ -38,7 +85,7 @@
       class="view-button view-float--right"
       (click)="onDeleteDashboardGroup(dashboardGroup.id)"
     >
-      Delete Dashboard Group
+      Delete Group
     </a>
   </div>
 </mat-card>

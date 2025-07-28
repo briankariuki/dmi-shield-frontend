@@ -26,12 +26,13 @@
       </mat-card-title>
 
       <mat-card-subtitle style="margin-top: 8px">
-        <p>{{ "Create a dashboard" }}</p>
+        <p>{{ "Create an embedded dashboard" }}</p>
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content style="margin-top: 3px">
       <dashboard-form
         (formSubmit)="createDashboard($event)"
+        (showLoader)="showLoader($event)"
         buttonLabel="Create"
       ></dashboard-form>
     </mat-card-content>

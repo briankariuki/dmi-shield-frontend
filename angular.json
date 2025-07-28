@@ -33,7 +33,11 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "styles": ["src/styles.scss", "src/assets/scss/style.scss"],
+            "styles": [
+              "src/styles.scss",
+              "src/assets/scss/style.scss",
+              "src/styles.css"
+            ],
             "scripts": [],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
@@ -69,18 +73,21 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "dmi-shield-frontend:build:production"
+              "buildTarget": "dmi-shield-frontend:build:production"
             },
             "development": {
-              "browserTarget": "dmi-shield-frontend:build:development"
+              "buildTarget": "dmi-shield-frontend:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "buildTarget": "dmi-shield-frontend:build"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dmi-shield-frontend:build"
+            "buildTarget": "dmi-shield-frontend:build"
           }
         },
         "test": {

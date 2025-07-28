@@ -14,6 +14,9 @@ import { DashboardGroupsComponent } from './index/dashboard_groups/dashboard_gro
 import { CreateDashboardGroupComponent } from './create/dashboard_group/create_dashboard_group.component';
 import { CreateDashboardComponent } from './create/dashboard/create_dashboard.component';
 import { DashboardFormComponent } from './forms/dashboards/dashboard.form.component';
+import { MatIconModule } from '@angular/material/icon';
+import { ShowDashboardComponent } from './index/dashboards/show/show_dashboard.component';
+import { BreadCrumbsComponent } from 'src/app/layouts/full/breadcrumbs/breadcrumbs.component';
 
 @NgModule({
   imports: [
@@ -25,6 +28,7 @@ import { DashboardFormComponent } from './forms/dashboards/dashboard.form.compon
     TablerIconsModule,
     NgxFileDropModule,
     MdbCarouselModule,
+    MatIconModule,
   ],
   declarations: [
     DashboardsComponent,
@@ -34,6 +38,8 @@ import { DashboardFormComponent } from './forms/dashboards/dashboard.form.compon
     DashboardGroupsComponent,
     CreateDashboardGroupComponent,
     CreateDashboardComponent,
+    ShowDashboardComponent,
+    BreadCrumbsComponent,
   ],
 })
 export class DashboardsModule {}

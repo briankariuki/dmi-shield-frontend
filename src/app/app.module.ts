@@ -29,6 +29,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FooterComponent } from './layouts/full/footer/footer.component';
 import { NgOptimizedImage } from '@angular/common';
 import { LoggingInterceptor } from './services/api/api.service';
+import { BreadCrumbsComponent } from './layouts/full/breadcrumbs/breadcrumbs.component';
 
 @NgModule({
   declarations: [

@@ -15,5 +15,6 @@ export type Dashboard = {
   user_id?: string;
   roles: string[];
   status?: string;
+  embed_token?: string;
   published_at?: Date;
 };

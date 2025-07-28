@@ -51,7 +51,7 @@ export class CreateDashboardComponent implements OnInit {
 
         this.dashboard = dashboard;
         this.communication.showToast('Dashboard created succesfully');
-        this.router.navigate(['/dashboards']);
+        this.router.navigate(['/dashboards/groups']);
       },
 
       error: (error) => {

@@ -79,9 +79,11 @@
         <mat-label>Group</mat-label>
 
         <mat-select formControlName="groupId">
-          <mat-option [value]="group" *ngFor="let group of groups">{{
-            group
-          }}</mat-option>
+          <mat-option
+            [value]="group.id"
+            *ngFor="let group of dashboardGroups"
+            >{{ group.name }}</mat-option
+          >
         </mat-select>
 
         <mat-error *ngIf="dashboardForm.get('groupId').hasError('required')">
