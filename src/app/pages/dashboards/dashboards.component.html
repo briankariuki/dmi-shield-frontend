@@ -1,5 +1,121 @@
-<section class="frame-section">
-  <mat-card class="cardWithShadow">
-    <div id="dashboard"></div>
+<section class="w-full min-h-screen pt-16">
+  <mat-card>
+    @if (this.ApiResponseStatus.processing) {
+      <mat-progress-bar
+        mode="indeterminate"
+        style="position: absolute; top: 0; left: 0; right: 0"
+      ></mat-progress-bar>
+    }
+    @if (this.ApiResponseStatus.processing) {
+      <div
+        style="
+          position: absolute;
+          top: 3%;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 2;
+        "
+      ></div>
+    }
+
+    <mat-card-header style="margin-bottom: 16px">
+      <mat-card-title>Dashboards</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>
+        <mat-form-field class="flex w-full" appearance="fill">
+          <mat-label>Search Dashboards</mat-label>
+
+          <input
+            type="text"
+            class="flex-1 flex-shrink-0 w-full"
+            matInput
+            (input)="onSearch($event)"
+          />
+
+          <mat-icon matSuffix>
+            <i-tabler name="search" class="icon-20"></i-tabler>
+          </mat-icon>
+        </mat-form-field>
+      </p>
+
+      @for (group of dashboardGroups; track group) {
+        <div class="py-4">
+          <mat-card class="b-1 shadow-none view-card">
+            <mat-card-header class="mb-8">
+              <mat-card-title>
+                <h3>
+                  {{ group.name }}
+                </h3>
+              </mat-card-title>
+
+              <mat-card-subtitle style="margin-top: 16px">
+                <p>
+                  {{ group.description }}
+                </p>
+              </mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-divider class="my-8"></mat-divider>
+
+            <mat-card-content>
+              <div class="grid grid-cols-1 md:grid-cols-2">
+                @for (dashboard of group.dashboards; track dashboard) {
+                  <div class="col-span-1">
+                    <mat-card class="b-1 shadow-none view-card">
+                      <mat-card-header class="mb-8">
+                        <mat-card-title>
+                          <h3>
+                            {{ dashboard.name }}
+                          </h3>
+                        </mat-card-title>
+
+                        <mat-card-subtitle style="margin-top: 16px">
+                          <p class="leading-relaxed">
+                            {{ dashboard.description }}
+                          </p>
+                        </mat-card-subtitle>
+                      </mat-card-header>
+
+                      <mat-divider></mat-divider>
+
+                      <div class="flex items-center justify-end p-4">
+                        <a
+                          mat-stroked-button
+                          color="primary"
+                          class="view-button view-float--right"
+                          [routerLink]="['/dashboards/view/', dashboard.id]"
+                        >
+                          View Dashboard
+                          <mat-icon>
+                            <i-tabler
+                              name="external-link"
+                              class="icon-16"
+                            ></i-tabler>
+                          </mat-icon>
+                        </a>
+                      </div>
+                    </mat-card>
+                  </div>
+                }
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      }
+
+      <mat-paginator
+        [length]="page.count"
+        color="primary"
+        (page)="onPageChanged($event)"
+        [pageSize]="page.limit"
+        [pageSizeOptions]="[10, 20, 50, 100]"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </mat-card-content>
   </mat-card>
 </section>

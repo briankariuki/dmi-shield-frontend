@@ -1,7 +1,11 @@
 <div class="m-l-24 m-r-24" style="margin-top: 160px; min-height: 100vh">
   <mat-card class="composite-data">
-    <mat-progress-bar *ngIf="this.ApiResponseStatus.processing;" mode="indeterminate" style="position: absolute; top: 0; left: 0; right: 0;"></mat-progress-bar>
-    <div *ngIf="this.ApiResponseStatus.processing;" style="position: absolute; top: 3%; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.7); z-index: 2;"></div>
+    @if (this.ApiResponseStatus.processing;) {
+      <mat-progress-bar mode="indeterminate" style="position: absolute; top: 0; left: 0; right: 0;"></mat-progress-bar>
+    }
+    @if (this.ApiResponseStatus.processing;) {
+      <div style="position: absolute; top: 3%; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.7); z-index: 2;"></div>
+    }
     <mat-card-header>
       <mat-card-title>
         <h3>File</h3>
@@ -15,8 +19,8 @@
     <mat-card-content>
       <form class="m-t-30" name="form_surveillance" id="form_surveillance_modify" #ModifyMField="ngForm">
         <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
-                       (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" [multiple]=true
-                       [accept]="allowedFiles">
+          (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" [multiple]=true
+          [accept]="allowedFiles">
           <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
             <a (click)="openFileSelector()">
               Click or drop a file here to upload - {{allowedFiles}}
@@ -24,35 +28,42 @@
           </ng-template>
         </ngx-file-drop>
 
-        <mat-card class="b-1 shadow-none view-card" *ngFor="let File of Files; let i=index">
-          <mat-card-content>
-            <a mat-stroked-button color="warn" class="view-button view-float--right" (click)="removeFile(i)">
-              Remove
-            </a>
-
-            <a mat-stroked-button color="primary" class="view-button view-float--right"
-               *ngIf="describeFileType(File)">
-              <select  class="custom-select mb-3 view-float--right border-none" (change)="assignDocumentType($event, i)">
-                <option value="">Select File Type</option>
-                <option *ngFor="let DocumentType of DocumentTypes">
-                  {{ DocumentMap[DocumentType] }}
-                </option>
-              </select>
-            </a>
-
-            <p class="view-text--size-large">
-              {{ File.fileEntry.name }}
-            </p>
-
-          </mat-card-content>
-        </mat-card>
+        @for (File of Files; track File; let i = $index) {
+          <mat-card class="b-1 shadow-none view-card">
+            <mat-card-content>
+              <a mat-stroked-button color="warn" class="view-button view-float--right" (click)="removeFile(i)">
+                Remove
+              </a>
+              @if (describeFileType(File)) {
+                <a mat-stroked-button color="primary" class="view-button view-float--right"
+                  >
+                  <select  class="custom-select mb-3 view-float--right border-none" (change)="assignDocumentType($event, i)">
+                    <option value="">Select File Type</option>
+                    @for (DocumentType of DocumentTypes; track DocumentType) {
+                      <option>
+                        {{ DocumentMap[DocumentType] }}
+                      </option>
+                    }
+                  </select>
+                </a>
+              }
+              <p class="view-text--size-large">
+                {{ File.fileEntry.name }}
+              </p>
+            </mat-card-content>
+          </mat-card>
+        }
 
         <div class="view-align--right">
-          <i-tabler *ngIf="this.ApiResponseStatus.success === true" class="view-icon--inline view-color--green"
-                    name="circle-check-filled"></i-tabler>
+          @if (this.ApiResponseStatus.success === true) {
+            <i-tabler class="view-icon--inline view-color--green"
+            name="circle-check-filled"></i-tabler>
+          }
 
-          <i-tabler *ngIf="this.ApiResponseStatus.success === false" class="view-icon--inline view-color--red"
-                    name="progress-alert"></i-tabler>
+          @if (this.ApiResponseStatus.success === false) {
+            <i-tabler class="view-icon--inline view-color--red"
+            name="progress-alert"></i-tabler>
+          }
 
           <button type="submit" mat-flat-button color="primary" class="view-button" (click)="SubmitInstance()">
             Upload

@@ -21,6 +21,7 @@ export class AppSideRegisterComponent implements OnInit {
   registrationForm!: FormGroup;
   userData: UserRegisterData;
   errors: string[] = [];
+  supportEmail = 'support@shield.health.go.ke';
 
   constructor(
     private router: Router,

@@ -8,16 +8,16 @@
       <mat-form-field style="width: 100%">
         <mat-label>Datasource</mat-label>
         <mat-select formControlName="datasource">
-          <mat-option
-            [value]="datasource"
-            *ngFor="let datasource of datasources"
-            >{{ datasource.resource }}</mat-option
-          >
+          @for (datasource of datasources; track datasource) {
+            <mat-option [value]="datasource">{{
+              datasource.resource
+            }}</mat-option>
+          }
         </mat-select>
 
-        <mat-error *ngIf="thresholdForm.get('datasource').hasError('required')">
-          Required
-        </mat-error>
+        @if (thresholdForm.get("datasource").hasError("required")) {
+          <mat-error> Required </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -26,16 +26,14 @@
         <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
           >Threshold Name</mat-label
         >
-        <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-form-field appearance="fill" class="w-100" color="primary">
           <mat-label>Name</mat-label>
 
           <input matInput placeholder="" formControlName="thresholdName" />
 
-          <mat-error
-            *ngIf="thresholdForm.get('thresholdName').hasError('required')"
-          >
-            Required
-          </mat-error>
+          @if (thresholdForm.get("thresholdName").hasError("required")) {
+            <mat-error> Required </mat-error>
+          }
         </mat-form-field>
       </div>
     </div>
@@ -49,14 +47,14 @@
         <mat-form-field style="width: 100%">
           <mat-label>Methods</mat-label>
           <mat-select formControlName="method">
-            <mat-option [value]="method" *ngFor="let method of methods">{{
-              method
-            }}</mat-option>
+            @for (method of methods; track method) {
+              <mat-option [value]="method">{{ method }}</mat-option>
+            }
           </mat-select>
 
-          <mat-error *ngIf="thresholdForm.get('method').hasError('required')">
-            Required
-          </mat-error>
+          @if (thresholdForm.get("method").hasError("required")) {
+            <mat-error> Required </mat-error>
+          }
         </mat-form-field>
       </div>
       <div style="flex: 2 1 0%">
@@ -67,26 +65,26 @@
         <mat-form-field style="width: 100%">
           <mat-label>Columns</mat-label>
           <mat-select formControlName="column">
-            <mat-option
-              [value]="column"
-              *ngFor="let column of selectableColumns"
-              [disabled]="column.is_dimension"
-              >{{ column.name }}
-              <span
-                style="
-                  padding: 6px 8px;
-                  background-color: #f7f7f7;
-                  font-size: 10px;
-                "
-                *ngIf="column.is_dimension"
-                >Dimension</span
-              >
-            </mat-option>
+            @for (column of selectableColumns; track column) {
+              <mat-option [value]="column" [disabled]="column.is_dimension"
+                >{{ column.name }}
+                @if (column.is_dimension) {
+                  <span
+                    style="
+                      padding: 6px 8px;
+                      background-color: #f7f7f7;
+                      font-size: 10px;
+                    "
+                    >Dimension</span
+                  >
+                }
+              </mat-option>
+            }
           </mat-select>
 
-          <mat-error *ngIf="thresholdForm.get('column').hasError('required')">
-            Required
-          </mat-error>
+          @if (thresholdForm.get("column").hasError("required")) {
+            <mat-error> Required </mat-error>
+          }
         </mat-form-field>
       </div>
     </div>
@@ -100,16 +98,14 @@
         <mat-form-field style="width: 100%">
           <mat-label>Operators</mat-label>
           <mat-select formControlName="operator">
-            <mat-option
-              [value]="operator"
-              *ngFor="let operator of selectedBaseColumn?.operators"
-              >{{ operator.name }}</mat-option
-            >
+            @for (operator of selectedBaseColumn?.operators; track operator) {
+              <mat-option [value]="operator">{{ operator.name }}</mat-option>
+            }
           </mat-select>
 
-          <mat-error *ngIf="thresholdForm.get('operator').hasError('required')">
-            Required
-          </mat-error>
+          @if (thresholdForm.get("operator").hasError("required")) {
+            <mat-error> Required </mat-error>
+          }
         </mat-form-field>
       </div>
 
@@ -117,16 +113,14 @@
         <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
           >Threshold Limit</mat-label
         >
-        <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-form-field appearance="fill" class="w-100" color="primary">
           <mat-label>Value</mat-label>
 
           <input matInput placeholder="" formControlName="thresholdValue" />
 
-          <mat-error
-            *ngIf="thresholdForm.get('thresholdValue').hasError('required')"
-          >
-            Required
-          </mat-error>
+          @if (thresholdForm.get("thresholdValue").hasError("required")) {
+            <mat-error> Required </mat-error>
+          }
         </mat-form-field>
       </div>
     </div>
@@ -140,18 +134,14 @@
         <mat-form-field style="width: 100%">
           <mat-label>Combinators</mat-label>
           <mat-select formControlName="combinator">
-            <mat-option
-              [value]="combinator"
-              *ngFor="let combinator of combinators"
-              >{{ combinator }}</mat-option
-            >
+            @for (combinator of combinators; track combinator) {
+              <mat-option [value]="combinator">{{ combinator }}</mat-option>
+            }
           </mat-select>
 
-          <mat-error
-            *ngIf="thresholdForm.get('combinator').hasError('required')"
-          >
-            Required
-          </mat-error>
+          @if (thresholdForm.get("combinator").hasError("required")) {
+            <mat-error> Required </mat-error>
+          }
         </mat-form-field>
       </div>
 
@@ -163,18 +153,19 @@
         <mat-form-field style="width: 100%">
           <mat-label>Frequency</mat-label>
           <mat-select formControlName="frequency">
-            <mat-option
-              [value]="frequency"
-              *ngFor="let frequency of selectedDatasource?.aggregate_by"
-              >{{ frequency.frequency }}</mat-option
-            >
+            @for (
+              frequency of selectedDatasource?.aggregate_by;
+              track frequency
+            ) {
+              <mat-option [value]="frequency">{{
+                frequency.frequency
+              }}</mat-option>
+            }
           </mat-select>
 
-          <mat-error
-            *ngIf="thresholdForm.get('frequency').hasError('required')"
-          >
-            Required
-          </mat-error>
+          @if (thresholdForm.get("frequency").hasError("required")) {
+            <mat-error> Required </mat-error>
+          }
         </mat-form-field>
       </div>
     </div>
@@ -184,141 +175,131 @@
         >Filters</mat-label
       >
 
-      <div
-        style="
-          margin: 24px 16px;
-          padding: 12px 16px;
-          background-color: #f7f7f7;
-          border-radius: 8px;
-        "
-        *ngFor="
-          let filter of thresholdForm.get('filters')['controls'];
-          let i = index
-        "
-        [formGroupName]="i"
-      >
-        <div style="display: flex">
-          <div style="flex: 1 1 0%">
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
-              >Filter By Column</mat-label
-            >
-
-            <mat-form-field>
-              <mat-label>Columns</mat-label>
-              <mat-select formControlName="column_name">
-                <mat-option
-                  [value]="column"
-                  *ngFor="let column of selectableDimensions"
-                  [disabled]="!column.is_dimension"
-                  >{{ column.name }}
-
-                  <mat-icon *ngIf="column.is_dimension">
-                    <span
-                      style="
-                        padding: 2px 4px;
-                        background-color: #f7f7f7;
-                        font-size: 10px;
-                      "
-                      >Dim</span
-                    >
-                  </mat-icon>
-                </mat-option>
-              </mat-select>
-
-              <mat-error
-                *ngIf="
-                  filter.get('column_name').hasError('required') &&
-                  (filter.get('column_name').touched ||
-                    filter.get('column_name').dirty)
-                "
-              >
-                Required
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div style="flex: 1 1 0%">
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
-              >Filter By Operator</mat-label
-            >
-
-            <mat-form-field>
-              <mat-label>Operators</mat-label>
-              <mat-select formControlName="operator">
-                <mat-option
-                  [value]="operator"
-                  *ngFor="
-                    let operator of filter.get('column_name')?.value.operators
-                  "
-                  >{{ operator.name }}</mat-option
-                >
-              </mat-select>
-
-              <mat-error
-                *ngIf="
-                  filter.get('operator').hasError('required') &&
-                  (filter.get('operator').touched ||
-                    filter.get('operator').dirty)
-                "
-              >
-                Required
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div>
-          <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
-            >Filter By Value</mat-label
-          >
-
-          <mat-form-field appearance="outline" class="w-100" color="primary">
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
-              >Value</mat-label
-            >
-
-            <mat-select formControlName="value">
-              <mat-option
-                [value]="column.value"
-                *ngFor="
-                  let column of distinctColumnValues[
-                    filter.get('column_name')?.value.name
-                  ]
-                "
-                >{{ column.value }}
-              </mat-option>
-            </mat-select>
-
-            <mat-error
-              *ngIf="
-                filter.get('value').hasError('required') &&
-                (filter.get('value').touched || filter.get('value').dirty)
-              "
-            >
-              Required
-            </mat-error>
-          </mat-form-field>
-        </div>
-
+      @for (
+        filter of thresholdForm.get("filters")["controls"];
+        track filter;
+        let i = $index
+      ) {
         <div
           style="
-            display: flex;
-            justify-items: flex-end;
-            justify-content: flex-end;
+            margin: 24px 16px;
+            padding: 12px 16px;
+            background-color: #f7f7f7;
+            border-radius: 8px;
           "
+          [formGroupName]="i"
         >
-          <button
-            (click)="removeFilter(i)"
-            type="buttton"
-            mat-flat-button
-            color="warn"
-            class="view-button"
-            style="float: right"
+          <div style="display: flex">
+            <div style="flex: 1 1 0%">
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+                >Filter By Column</mat-label
+              >
+              <mat-form-field>
+                <mat-label>Columns</mat-label>
+                <mat-select formControlName="column_name">
+                  @for (column of selectableDimensions; track column) {
+                    <mat-option
+                      [value]="column"
+                      [disabled]="!column.is_dimension"
+                      >{{ column.name }}
+                      @if (column.is_dimension) {
+                        <mat-icon>
+                          <span
+                            style="
+                              padding: 2px 4px;
+                              background-color: #f7f7f7;
+                              font-size: 10px;
+                            "
+                            >Dim</span
+                          >
+                        </mat-icon>
+                      }
+                    </mat-option>
+                  }
+                </mat-select>
+                @if (
+                  filter.get("column_name").hasError("required") &&
+                  (filter.get("column_name").touched ||
+                    filter.get("column_name").dirty)
+                ) {
+                  <mat-error> Required </mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <div style="flex: 1 1 0%">
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+                >Filter By Operator</mat-label
+              >
+              <mat-form-field>
+                <mat-label>Operators</mat-label>
+                <mat-select formControlName="operator">
+                  @for (
+                    operator of filter.get("column_name")?.value.operators;
+                    track operator
+                  ) {
+                    <mat-option [value]="operator">{{
+                      operator.name
+                    }}</mat-option>
+                  }
+                </mat-select>
+                @if (
+                  filter.get("operator").hasError("required") &&
+                  (filter.get("operator").touched ||
+                    filter.get("operator").dirty)
+                ) {
+                  <mat-error> Required </mat-error>
+                }
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+              >Filter By Value</mat-label
+            >
+            <mat-form-field appearance="fill" class="w-100" color="primary">
+              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
+                >Value</mat-label
+              >
+              <mat-select formControlName="value">
+                @for (
+                  column of distinctColumnValues[
+                    filter.get("column_name")?.value.name
+                  ];
+                  track column
+                ) {
+                  <mat-option [value]="column.value"
+                    >{{ column.value }}
+                  </mat-option>
+                }
+              </mat-select>
+              @if (
+                filter.get("value").hasError("required") &&
+                (filter.get("value").touched || filter.get("value").dirty)
+              ) {
+                <mat-error> Required </mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-items: flex-end;
+              justify-content: flex-end;
+            "
           >
-            Remove
-          </button>
+            <button
+              (click)="removeFilter(i)"
+              type="buttton"
+              mat-flat-button
+              color="warn"
+              class="view-button"
+              style="float: right"
+            >
+              Remove
+            </button>
+          </div>
         </div>
-      </div>
+      }
     </div>
 
     <button type="button" (click)="addFilter()" mat-stroked-button>

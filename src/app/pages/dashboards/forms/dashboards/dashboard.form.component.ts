@@ -18,21 +18,9 @@ import { ApiService } from 'src/app/services/api/api.service';
 export class DashboardFormComponent implements OnInit, OnChanges {
   roles: string[] = ['guest', 'level1', 'level2', 'admin'];
 
-  groups: string[] = [
-    'Indicator Based Surveillance',
-    'Event Based Surveillance',
-    'SARI/ILI Surveillance',
-    'COVID 19 Mortality Surveillance',
-    'E-Bridge',
-    'Outbreak Response',
-  ];
   dashboardForm!: FormGroup;
-
-  // dashboardName: null | string = null;
-  // dashboardDescription: null | string = null;
-  dashboardName: null | string = 'E-Bridge Diarrhoeal Diseases Dashboard';
-  dashboardDescription: null | string =
-    'Contains data from e-bridge diarrhoeal model and counts for diarrhoeal diseases e.g typhoid, cholera from MOH 505, aggregated by epi-week';
+  dashboardName: null | string = null;
+  dashboardDescription: null | string = null;
 
   @Input() buttonLabel: string = 'Create';
   @Input() dashboard: Dashboard | null;
@@ -54,7 +42,7 @@ export class DashboardFormComponent implements OnInit, OnChanges {
       ),
       dashboardId: new FormControl(
         {
-          value: '7d518a24-6ba0-4866-9717-40a93c016fd5',
+          value: '',
           disabled: false,
         },
         [Validators.required],
@@ -82,7 +70,7 @@ export class DashboardFormComponent implements OnInit, OnChanges {
       ),
       domain: new FormControl(
         {
-          value: 'shieldtest-analytics.icapkenya.org',
+          value: '',
           disabled: false,
         },
         [Validators.required],

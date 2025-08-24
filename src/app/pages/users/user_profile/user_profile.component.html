@@ -3,40 +3,35 @@
     padding-top: 10px !important;
   }
 </style>
-<div style="margin-top: 128px; min-height: 100vh; padding: 2rem 9%">
-  <mat-card *ngIf="!this.currentUser.confirmed_at" class="cardWithShadow">
-    <mat-card-header style="padding-bottom: 16px">
-      <mat-card-title>
-        <h3>Confirm your account</h3>
-      </mat-card-title>
-
-      <mat-card-subtitle style="margin-top: 16px">
-        <p>Please confirm your email address to access SHIELD.</p>
-      </mat-card-subtitle>
-
-      <span class="flex-1-auto"></span>
-
-      <button
-        *ngIf="!this.ApiResponseStatusConfirmation.processing"
-        mat-flat-button
-        class="view-button"
-        (click)="requestConfirmationEmail()"
-        color="primary"
-      >
-        <span style="color: white"> Request Confirmation Email </span>
-      </button>
-
-      <button
-        *ngIf="this.ApiResponseStatusConfirmation.processing"
-        mat-flat-button
-        class="view-button"
-        disabled
-        color="primary"
-      >
-        <span style="color: white"> Requesting Confirmation...</span>
-      </button>
-    </mat-card-header>
-  </mat-card>
+<div class="min-h-screen w-full pt-16">
+  @if (!this.currentUser.confirmed_at) {
+    <mat-card class="cardWithShadow">
+      <mat-card-header style="padding-bottom: 16px">
+        <mat-card-title>
+          <h3>Confirm your account</h3>
+        </mat-card-title>
+        <mat-card-subtitle style="margin-top: 16px">
+          <p>Please confirm your email address to access SHIELD.</p>
+        </mat-card-subtitle>
+        <span class="flex-1-auto"></span>
+        @if (!this.ApiResponseStatusConfirmation.processing) {
+          <button
+            mat-flat-button
+            class="view-button"
+            (click)="requestConfirmationEmail()"
+            color="primary"
+          >
+            <span style="color: white"> Request Confirmation Email </span>
+          </button>
+        }
+        @if (this.ApiResponseStatusConfirmation.processing) {
+          <button mat-flat-button class="view-button" disabled color="primary">
+            <span style="color: white"> Requesting Confirmation...</span>
+          </button>
+        }
+      </mat-card-header>
+    </mat-card>
+  }
 
   <mat-card class="cardWithShadow">
     <mat-card-header style="padding-bottom: 16px">
@@ -77,24 +72,23 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card *ngIf="this.currentUser.confirmed_at" class="cardWithShadow">
-    <mat-card-header style="padding-bottom: 16px">
-      <mat-card-title>
-        <h3>Account Confirmed</h3>
-      </mat-card-title>
-
-      <mat-card-subtitle style="margin-top: 16px">
-        <p>
-          Your user account was confirmed on
-          {{ this.currentUser.confirmed_at | date: "yyyy-MM-dd HH:mm:ss aa" }}
-        </p>
-      </mat-card-subtitle>
-
-      <span class="flex-1-auto"></span>
-
-      <button disabled mat-flat-button class="view-button" color="primary">
-        <span style="color: white"> Account Already Confirmed </span>
-      </button>
-    </mat-card-header>
-  </mat-card>
+  @if (this.currentUser.confirmed_at) {
+    <mat-card class="cardWithShadow">
+      <mat-card-header style="padding-bottom: 16px">
+        <mat-card-title>
+          <h3>Account Confirmed</h3>
+        </mat-card-title>
+        <mat-card-subtitle style="margin-top: 16px">
+          <p>
+            Your user account was confirmed on
+            {{ this.currentUser.confirmed_at | date: "yyyy-MM-dd HH:mm:ss aa" }}
+          </p>
+        </mat-card-subtitle>
+        <span class="flex-1-auto"></span>
+        <button disabled mat-flat-button class="view-button" color="primary">
+          <span style="color: white"> Account Already Confirmed </span>
+        </button>
+      </mat-card-header>
+    </mat-card>
+  }
 </div>

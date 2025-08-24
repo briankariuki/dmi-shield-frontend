@@ -13,6 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ApiResponseStatus } from 'src/app/interfaces/IAuth.model';
 import { AlertRun, Threshold } from 'src/app/interfaces/IThreshold.model';
 import { ApiService } from 'src/app/services/api/api.service';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'threshold-item',
@@ -30,7 +31,10 @@ export class ThresholdItemComponent implements OnInit, AfterViewInit {
   value: string = '';
   description: string = '';
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private dialogService: DialogService,
+  ) {}
 
   ApiResponseStatus: ApiResponseStatus = {
     success: null,
@@ -58,8 +62,17 @@ export class ThresholdItemComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  onDeleteThreshold(threshold_id: string) {
-    this.deleteThreshold.emit(threshold_id);
+  async onDeleteThreshold(threshold_id: string): Promise<void> {
+    const confirmed = await this.dialogService.confirmDelete({
+      title: 'Delete Threshold',
+      message: 'This will permanently delete the threshold. Continue?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+    });
+
+    if (confirmed) {
+      this.deleteThreshold.emit(threshold_id);
+    }
   }
 
   calculateValue() {

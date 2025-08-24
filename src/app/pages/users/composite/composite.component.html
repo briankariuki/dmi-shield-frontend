@@ -1,22 +1,24 @@
-<div style="margin-top: 128px; min-height: 100vh; padding: 2rem 9%">
+<div class="min-h-screen w-full pt-16">
   <mat-card class="cardWithShadow">
-    <mat-progress-bar
-      *ngIf="this.ApiResponseStatus.processing"
-      mode="indeterminate"
-      style="position: absolute; top: 0; left: 0; right: 0"
-    ></mat-progress-bar>
-    <div
-      *ngIf="this.ApiResponseStatus.processing"
-      style="
-        position: absolute;
-        top: 3%;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.7);
-        z-index: 2;
-      "
-    ></div>
+    @if (this.ApiResponseStatus.processing) {
+      <mat-progress-bar
+        mode="indeterminate"
+        style="position: absolute; top: 0; left: 0; right: 0"
+      ></mat-progress-bar>
+    }
+    @if (this.ApiResponseStatus.processing) {
+      <div
+        style="
+          position: absolute;
+          top: 3%;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 2;
+        "
+      ></div>
+    }
 
     <mat-card-header>
       <mat-card-title>Users</mat-card-title>
@@ -27,28 +29,29 @@
     </mat-card-header>
 
     <mat-card-content>
-      <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-form-field appearance="fill" class="w-100" color="primary">
         <mat-label>Search</mat-label>
         <input type="string" matInput (input)="onSearch($event)" />
       </mat-form-field>
 
-      <mat-card class="b-1 shadow-none view-card" *ngFor="let user of users">
-        <mat-card-content>
-          <a
-            mat-stroked-button
-            color="primary"
-            class="view-button view-float--right"
-            [routerLink]="[user.id, 'update-role']"
-          >
-            Edit Role
-          </a>
-
-          <p class="view-text--size-large">
-            {{ user.name }}
-            ({{ user.email }}) - {{ this.formatUserRoles(user.role) }}
-          </p>
-        </mat-card-content>
-      </mat-card>
+      @for (user of users; track user) {
+        <mat-card class="b-1 shadow-none view-card">
+          <mat-card-content>
+            <a
+              mat-stroked-button
+              color="primary"
+              class="view-button view-float--right"
+              [routerLink]="[user.id, 'update-role']"
+            >
+              Edit Role
+            </a>
+            <p class="view-text--size-large">
+              {{ user.name }}
+              ({{ user.email }}) - {{ this.formatUserRoles(user.role) }}
+            </p>
+          </mat-card-content>
+        </mat-card>
+      }
 
       <mat-paginator
         [length]="page.count"

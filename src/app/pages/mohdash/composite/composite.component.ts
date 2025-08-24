@@ -22,11 +22,11 @@ export class CompositeComponent implements OnInit {
 
   @ViewChild('carousel', { static: false }) carousel: any;
   constructor(private awareness: AwarenessService) {
-    config.SUMMARIZED_IFRAME_SOURCES.forEach((item) => {
-      item.source = <string>(
-        this.sanitizer.bypassSecurityTrustResourceUrl(item.source)
-      );
-    });
+    // config.SUMMARIZED_IFRAME_SOURCES.forEach((item) => {
+    //   item.source = <string>(
+    //     this.sanitizer.bypassSecurityTrustResourceUrl(item.source)
+    //   );
+    // });
   }
 
   ngOnInit() {}

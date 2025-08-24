@@ -32,6 +32,7 @@ export class ModifyComponent implements OnInit {
     'mdharura',
     'mdharura_aggregates',
     'sari',
+    'amr',
   ];
 
   DocumentMap = {
@@ -43,6 +44,7 @@ export class ModifyComponent implements OnInit {
     mdharura: 'm-DHARURA LINELIST',
     mdharura_aggregates: 'm-DHARURA AGGREGATES',
     sari: 'SARI ILI',
+    amr: 'AMR',
   };
   fileData: CreatePreSignedUrlData;
 

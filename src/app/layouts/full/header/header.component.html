@@ -1,287 +1,185 @@
-<div class="header-container" (window:scroll)="onScroll($event)">
-  <div class="top-header" [class.hidden]="hideNav" #topHeader>
-    <a
-      [routerLink]="['/home']"
-      [class.active]="activeRoute === '/home'"
-      style="padding-left: 9%"
-    >
+<div id="header-container" class="header-container">
+  <div
+    id="top-header"
+    class="max-w-screen-xl h-32 z-50 mx-auto flex items-center px-8 2xl:px-0"
+    [class.hidden]="hideNav"
+    #topHeader
+  >
+    <a [routerLink]="['/home']" [class.active]="activeRoute === '/home'">
       <img
-        style="width: auto; padding: 10px"
-        class="nav-shield"
+        class="h-16 lg:h-24"
         src="assets/images/logos/logo-moh.png"
         alt="moh logo"
       />
     </a>
   </div>
-  <header class="header" [class.fixed]="headerFixed">
-    <div class="navbar">
-      <a>
-        <img
-          style="width: 36px"
-          src="assets/images/new_logo/shield_new_logo.png"
-          alt="shield logo"
-        />
-      </a>
-      <a [routerLink]="['/home']" [class.active]="activeRoute === '/home'"
-        >Home</a
-      >
-      <a [routerLink]="['/about']" [class.active]="activeRoute === '/about'"
-        >About</a
-      >
-      <a
-        [matMenuTriggerFor]="menu"
-        [class.active]="activeRoute === '/dashboard'"
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: row;
-        "
-      >
-        Dashboards
-        <i class="bx bxs-chevron-down"></i>
-      </a>
-      <mat-menu #menu="matMenu">
-        <a
-          mat-menu-item
-          [routerLink]="
-            dashboards?.length
-              ? ['/dashboards', dashboards[0]]
-              : ['/dashboards']
-          "
-          [class.active]="
-            activeRoute ===
-            '/dashboards/' + (dashboards?.length ? dashboards[0] : '')
-          "
-          style="color: inherit"
-        >
-          <span>Indicator Based Surveillance</span>
-        </a>
-        <a
-          mat-menu-item
-          [routerLink]="
-            dashboards?.length
-              ? ['/dashboards', dashboards[1]]
-              : ['/dashboards']
-          "
-          [class.active]="
-            activeRoute ===
-            '/dashboards/' + (dashboards?.length ? dashboards[1] : '')
-          "
-          style="color: inherit"
-        >
-          <span>Integrated Facility-Based Surveillance</span>
-        </a>
-        <a
-          mat-menu-item
-          [routerLink]="
-            dashboards?.length
-              ? ['/dashboards', dashboards[2]]
-              : ['/dashboards']
-          "
-          [class.active]="
-            activeRoute ===
-            '/dashboards/' + (dashboards?.length ? dashboards[2] : '')
-          "
-          style="color: inherit"
-        >
-          <span>SARI/ILI Surveillance</span>
-        </a>
-        <a
-          mat-menu-item
-          [routerLink]="
-            dashboards?.length
-              ? ['/dashboards', dashboards[3]]
-              : ['/dashboards']
-          "
-          [class.active]="
-            activeRoute ===
-            '/dashboards/' + (dashboards?.length ? dashboards[3] : '')
-          "
-          style="color: inherit"
-        >
-          <span>COVID-19 Mortality Surveillance</span>
-        </a>
-        <a
-          mat-menu-item
-          [routerLink]="
-            dashboards?.length
-              ? ['/dashboards', dashboards[4]]
-              : ['/dashboards']
-          "
-          [class.active]="
-            activeRoute ===
-            '/dashboards/' + (dashboards?.length ? dashboards[4] : '')
-          "
-          style="color: inherit"
-        >
-          <span>Event Based Surveillance</span>
-        </a>
-        <a
-          mat-menu-item
-          [routerLink]="
-            dashboards?.length
-              ? ['/dashboards', dashboards[6]]
-              : ['/dashboards']
-          "
-          [class.active]="
-            activeRoute ===
-            '/dashboards/' + (dashboards?.length ? dashboards[6] : '')
-          "
-          style="color: inherit"
-        >
-          <span>E-Bridge</span>
-        </a>
-        <a
-          mat-menu-item
-          [routerLink]="
-            dashboards?.length
-              ? ['/dashboards', dashboards[5]]
-              : ['/dashboards']
-          "
-          [class.active]="
-            activeRoute ===
-            '/dashboards/' + (dashboards?.length ? dashboards[5] : '')
-          "
-          style="color: inherit"
-        >
-          <span>Outbreak Response</span>
-        </a>
-      </mat-menu>
-
-      <a
-        [routerLink]="['/surveillance/composites']"
-        [class.active]="activeRoute === '/surveillance/composites'"
-        >Upload Data</a
-      >
-
-      <a
-        [routerLink]="['/thresholds/composites']"
-        [class.active]="activeRoute === '/thresholds/composites'"
-        >Thresholds</a
-      >
-      <a
-        [routerLink]="['/resources/composites']"
-        [class.active]="activeRoute === '/resources/composites'"
-        >Resources</a
-      >
-      <a
-        class="hide-fullScreen"
-        [routerLink]="['/notifications']"
-        [class.active]="activeRoute === '/notifications'"
-      >
-        <img
-          src="assets/images/icons/notifications-bell.svg"
-          style="height: 30px"
-          alt=""
-        />
-      </a>
-    </div>
-
-    <nav class="navbar-tools">
-      <div
-        class="navbar-tools-items"
-        *ngIf="this.awareness.currentUser != null; else signInLoginButton"
-      >
-        <a [routerLink]="['/users/me']">
-          <div class="icon-container">
-            <i class="fa-solid fa-user"></i>
-          </div>
-        </a>
-
-        <a [matMenuTriggerFor]="notificationMenu">
-          <div class="icon-container">
-            <i class="bx bxs-bell-ring"></i>
-          </div>
-        </a>
-
-        <a [matMenuTriggerFor]="actionsMenu">
-          <div class="icon-container">
-            <i class="fa-solid fa-gear"></i>
-          </div>
-        </a>
-
-        <mat-menu #actionsMenu="matMenu" xPosition="before">
-          <button mat-menu-item [routerLink]="['/users/me']">My Account</button>
-
-          <button
-            mat-menu-item
-            [routerLink]="['/users/']"
-            *ngIf="userRole === 'admin'"
-          >
-            Manage Users
-          </button>
-
-          <button
-            mat-menu-item
-            [routerLink]="['/dashboards/groups/']"
-            *ngIf="userRole === 'admin'"
-          >
-            Manage Embedded Dashboards
-          </button>
-
-          <!--        <button mat-menu-item [routerLink]="['/thresholds/composites']" *ngIf="userRole === 'admin'">Set Thresholds</button>-->
-          <button mat-menu-item (click)="signOut()">Sign Out</button>
-        </mat-menu>
-      </div>
-
-      <ng-template #signInLoginButton>
-        <div class="">
-          <a
-            style="text-decoration: none"
-            [routerLink]="['/authentication/login']"
-            class="btn1"
-          >
-            Sign In
+  <header id="main-header" class="header w-full" [class.fixed]="headerFixed">
+    <div
+      class="flex items-center w-full justify-between max-w-screen-xl mx-auto px-8 2xl:px-0 py-4 lg:py-8"
+    >
+      <div class="flex-1 flex items-center justify-between">
+        <div>
+          <a [routerLink]="['/home']">
+            <img
+              class="h-16 lg:h-24"
+              src="assets/images/new_logo/shield_new_logo.png"
+              alt="shield logo"
+            />
           </a>
         </div>
-      </ng-template>
-    </nav>
 
-    <mat-menu
-      #notificationMenu="matMenu"
-      xPosition="before"
-      style="max-width: 300px"
-    >
-      <div class="m-t-10 m-l-10" style="font-weight: bold">Notifications</div>
-      <div
-        class="m-t-5 m-l-10 m-r-10"
-        style="border-bottom: 1px solid #000"
-      ></div>
+        <div class="hidden lg:block">
+          <div
+            class="flex-1 flex items-center justify-center gap-x-4 font-bold [&_a]:mx-6 [&_a]:text-3xl"
+          >
+            <a
+              [routerLink]="['/home']"
+              class="text-white hover:text-[var(--main-color)] transition-colors [&.active]:text-[var(--main-color)]"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Home</a
+            >
+            <a
+              [routerLink]="['/about']"
+              class="text-white hover:text-[var(--main-color)] transition-colors [&.active]:text-[var(--main-color)]"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >About</a
+            >
+            <a
+              [routerLink]="['/dashboards']"
+              class="text-white hover:text-[var(--main-color)] transition-colors [&.active]:text-[var(--main-color)]"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Dashboards
+            </a>
 
-      <div
-        *ngFor="let notification of Notifications | slice: 0 : 4"
-        class="p-t-10 p-l-10 p-r-10"
+            <a
+              [routerLink]="['/surveillance/composites']"
+              class="text-white hover:text-[var(--main-color)] transition-colors [&.active]:text-[var(--main-color)]"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Upload Data</a
+            >
+
+            <a
+              [routerLink]="['/thresholds/composites']"
+              class="text-white hover:text-[var(--main-color)] transition-colors [&.active]:text-[var(--main-color)]"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Thresholds</a
+            >
+            <a
+              [routerLink]="['/resources/composites']"
+              class="text-white hover:text-[var(--main-color)] transition-colors [&.active]:text-[var(--main-color)]"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Resources</a
+            >
+          </div>
+        </div>
+
+        <nav class="navbar-tools">
+          @if (this.awareness.currentUser != null) {
+            <div class="navbar-tools-items">
+              <a [routerLink]="['/users/me']">
+                <div class="icon-container">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+              </a>
+              <a [matMenuTriggerFor]="notificationMenu">
+                <div class="icon-container">
+                  <i class="bx bxs-bell-ring"></i>
+                </div>
+              </a>
+              <a [matMenuTriggerFor]="actionsMenu">
+                <div class="icon-container">
+                  <i class="fa-solid fa-gear"></i>
+                </div>
+              </a>
+              <mat-menu #actionsMenu="matMenu" xPosition="before">
+                <button mat-menu-item [routerLink]="['/users/me']">
+                  My Account
+                </button>
+                @if (userRole === "admin") {
+                  <button mat-menu-item [routerLink]="['/users/']">
+                    Manage Users
+                  </button>
+                }
+                @if (userRole === "admin") {
+                  <button mat-menu-item [routerLink]="['/dashboards/groups/']">
+                    Manage Embedded Dashboards
+                  </button>
+                }
+                <!--        <button mat-menu-item [routerLink]="['/thresholds/composites']" *ngIf="userRole === 'admin'">Set Thresholds</button>-->
+                <button mat-menu-item (click)="signOut()">Sign Out</button>
+              </mat-menu>
+            </div>
+          } @else {
+            <div class="">
+              <a
+                style="text-decoration: none"
+                [routerLink]="['/authentication/login']"
+                class="btn1"
+              >
+                Sign In
+              </a>
+            </div>
+          }
+        </nav>
+      </div>
+
+      <mat-menu
+        #notificationMenu="matMenu"
+        xPosition="before"
+        style="max-width: 300px"
       >
-        <div style="word-wrap: break-word; font-weight: 550">
-          {{ notification.title }}
-        </div>
+        <div class="m-t-10 m-l-10" style="font-weight: bold">Notifications</div>
         <div
-          style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
-        >
-          {{ notification.message }}
-        </div>
-
-        <div
-          class="m-t-5 m-l-15 m-r-15"
+          class="m-t-5 m-l-10 m-r-10"
           style="border-bottom: 1px solid #000"
         ></div>
-      </div>
 
-      <div
-        class="m-t-4"
-        style="
-          text-align: center;
-          font-weight: bold;
-          color: var(--text-color);
-          text-decoration: none;
-        "
-      >
-        <a [routerLink]="['/notifications']">View All</a>
-      </div>
-    </mat-menu>
+        @for (
+          notification of Notifications | slice: 0 : 4;
+          track notification
+        ) {
+          <div class="p-t-10 p-l-10 p-r-10">
+            <div style="word-wrap: break-word; font-weight: 550">
+              {{ notification.title }}
+            </div>
+            <div
+              style="
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              "
+            >
+              {{ notification.message }}
+            </div>
+            <div
+              class="m-t-5 m-l-15 m-r-15"
+              style="border-bottom: 1px solid #000"
+            ></div>
+          </div>
+        }
 
-    <div class="bx bx-menu" id="menu-icon" (click)="toggleMenuIcon()"></div>
+        <div
+          class="m-t-4"
+          style="
+            text-align: center;
+            font-weight: bold;
+            color: var(--text-color);
+            text-decoration: none;
+          "
+        >
+          <a [routerLink]="['/notifications']">View All</a>
+        </div>
+      </mat-menu>
+
+      <div class="bx bx-menu" id="menu-icon" (click)="toggleMenuIcon()"></div>
+    </div>
   </header>
 </div>
 
@@ -307,7 +205,9 @@
       (click)="toggleMenuIcon()"
       >About</a
     >
-    <a [matMenuTriggerFor]="menu" [class.active]="activeRoute === '/dashboard'"
+    <a
+      [routerLink]="['/dashboards']"
+      [class.active]="activeRoute === '/dashboards'"
       >Dashboards</a
     >
     <a

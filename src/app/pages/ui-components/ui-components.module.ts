@@ -12,6 +12,8 @@ import { UiComponentsRoutes } from './ui-components.routing';
 
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ConfirmationDialogComponent } from './confirmation_dialog/confirmation_dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -22,7 +24,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     ReactiveFormsModule,
     TablerIconsModule.pick(TablerIcons),
     MatNativeDateModule,
+    MatDialogModule,
   ],
-  declarations: [AppTooltipsComponent],
+  declarations: [AppTooltipsComponent, ConfirmationDialogComponent],
 })
 export class UicomponentsModule {}

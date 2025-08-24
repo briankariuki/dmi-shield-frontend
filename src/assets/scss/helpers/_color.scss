@@ -3,11 +3,11 @@
 @mixin syntax-colors($args...) {
   @each $name, $color in meta.keywords($args) {
     .bg-#{$name} {
-      background-color: $color !important;
+      background-color: $color;
     }
 
     .text-#{$name} {
-      color: $color !important;
+      color: $color;
     }
   }
 }

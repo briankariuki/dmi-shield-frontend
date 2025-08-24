@@ -2,6 +2,8 @@ import {
   Component,
   EventEmitter,
   Input,
+  NgZone,
+  OnDestroy,
   OnInit,
   Output,
   ViewEncapsulation,
@@ -10,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AwarenessService } from 'src/app/services/awareness.service';
 import { User } from 'src/app/models/User.model';
 import { Location } from '@angular/common';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { CommunicationService } from '../../../services/communication.service';
 import {
   ApiResponseStatus,
@@ -19,14 +21,23 @@ import {
 import { ApiService } from '../../../services/api/api.service';
 import { NotificationModel } from '../../../models/Notification.model';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { config } from '../../../config/config';
+import {
+  distinctUntilChanged,
+  fromEvent,
+  map,
+  Subject,
+  takeUntil,
+  throttleTime,
+} from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+
   @Input() showToggle = true;
   @Input() toggleChecked = false;
   @Output() toggleMobileNav = new EventEmitter<void>();
@@ -34,9 +45,8 @@ export class HeaderComponent implements OnInit {
   @Output() toggleCollapsed = new EventEmitter<void>();
   scrollTop = 0;
   hideNav = false;
-  headerFixed = true;
+  headerFixed = false;
   navbarOpen = false;
-
   showFiller = false;
   showMenu: boolean = false;
   showNotificationCard: boolean = false;
@@ -46,13 +56,15 @@ export class HeaderComponent implements OnInit {
   Notifications: NotificationModel[] = [];
   userRole: string;
 
+  private topHeaderHeight: number | null = null;
+  private readonly scrollThreshold = 50;
+
   ApiResponseStatus: ApiResponseStatus = {
     success: null,
     result: null,
     processing: false,
     message: '',
   };
-  dashboards: string[];
 
   constructor(
     private router: Router,
@@ -62,18 +74,20 @@ export class HeaderComponent implements OnInit {
     private communication: CommunicationService,
     private apiService: ApiService,
     private authenticationService: AuthenticationService,
+    private route: ActivatedRoute,
+    private ngZone: NgZone,
   ) {}
 
   ngOnInit(): void {
-    this.dashboards = config.SUPERSET.DASHBOARDS;
     this.getUser();
-    // this.awareness.awaken(null);
 
     this.router.events.subscribe((events) => {
       if (events instanceof NavigationEnd) {
         this.updateActiveRoute();
       }
     });
+
+    this.activeRoute = this.location.path();
 
     this.authenticationService.getApiCurrentUserRole().subscribe({
       next: (role) => {
@@ -84,6 +98,19 @@ export class HeaderComponent implements OnInit {
         }
       },
       error: (err) => console.error('Error fetching user role', err),
+    });
+
+    this.ngZone.runOutsideAngular(() => {
+      fromEvent(window, 'scroll', { passive: true })
+        .pipe(
+          throttleTime(32), // ~60fps
+          map(() => window.pageYOffset || document.documentElement.scrollTop),
+          distinctUntilChanged((prev, curr) => Math.abs(prev - curr) < 5),
+          takeUntil(this.destroy$),
+        )
+        .subscribe((currentScrollTop) => {
+          this.handleScrollLogic(currentScrollTop);
+        });
     });
   }
 
@@ -99,39 +126,32 @@ export class HeaderComponent implements OnInit {
     this.location.back();
   }
 
-  // onScroll(event) {
-  //   this.hideNav = this.scrollTop < event.target.scrollTop;
-  //   this.scrollTop = event.target.scrollTop;
-  // }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
-  onScroll(event: any) {
-    const currentScrollTop =
-      window.scrollY || document.documentElement.scrollTop;
+  private handleScrollLogic(currentScrollTop: number): void {
+    if (this.topHeaderHeight === null) {
+      const topHeaderElement = document.querySelector(
+        '#top-header',
+      ) as HTMLElement;
+      this.topHeaderHeight = topHeaderElement?.clientHeight || 0;
+    }
 
-    if (currentScrollTop > this.scrollTop) {
-      // Scrolling down
-      if (currentScrollTop > 0) {
+    const isScrollingDown = currentScrollTop > this.scrollTop;
+
+    this.ngZone.run(() => {
+      if (isScrollingDown && currentScrollTop > this.scrollThreshold) {
         this.hideNav = true;
-      }
-    } else {
-      // Scrolling up
-      if (currentScrollTop < this.scrollTop) {
+      } else if (!isScrollingDown) {
         this.hideNav = false;
-        this.headerFixed = true; // Keep the header fixed when scrolling up
       }
-    }
 
-    // Update scrollTop
-    this.scrollTop = currentScrollTop;
-
-    // Logic to keep header fixed only when top-header is about to reappear
-    const topHeaderHeight =
-      document.querySelector('.top-header')?.clientHeight || 0;
-    if (currentScrollTop > topHeaderHeight) {
-      this.headerFixed = true;
-    } else {
-      this.headerFixed = false;
-    }
+      // Header fixed state
+      this.headerFixed = currentScrollTop > this.topHeaderHeight;
+      this.scrollTop = currentScrollTop;
+    });
   }
 
   signOut() {

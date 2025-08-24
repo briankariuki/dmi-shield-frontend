@@ -17,6 +17,8 @@ import { DashboardFormComponent } from './forms/dashboards/dashboard.form.compon
 import { MatIconModule } from '@angular/material/icon';
 import { ShowDashboardComponent } from './index/dashboards/show/show_dashboard.component';
 import { BreadCrumbsComponent } from 'src/app/layouts/full/breadcrumbs/breadcrumbs.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   imports: [
@@ -29,6 +31,8 @@ import { BreadCrumbsComponent } from 'src/app/layouts/full/breadcrumbs/breadcrum
     NgxFileDropModule,
     MdbCarouselModule,
     MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   declarations: [
     DashboardsComponent,

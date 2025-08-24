@@ -37,10 +37,8 @@ export class ShowDashboardComponent implements OnInit {
 
     this.breadcrumbs = [
       {
-        name: 'Home',
-      },
-      {
         name: 'Dashboards',
+        href: '/dashboards',
       },
     ];
     this.loadDashboard();
@@ -59,7 +57,11 @@ export class ShowDashboardComponent implements OnInit {
 
         this.dashboard = dashboard;
 
-        this.breadcrumbs = [...this.breadcrumbs, { name: dashboard.name }];
+        this.breadcrumbs = [
+          ...this.breadcrumbs,
+          { name: dashboard.dashboard_group?.name, href: '/dashboards' },
+          { name: dashboard.name, href: `/dashboards/view/${dashboard.id}` },
+        ];
         this.ApiResponseStatus.success = true;
       },
 
@@ -79,11 +81,11 @@ export class ShowDashboardComponent implements OnInit {
 
     if (dashboardElement) {
       const mountPoint = document.getElementById('dashboard');
+      const domain = this.getBaseSupersetDomain(this.dashboard.superset_domain);
 
       embedDashboard({
         id: this.dashboard.dashboard_id,
-        // id: '3614841c-6680-4e74-af33-ce5f2ea0b357',
-        supersetDomain: `https://${this.dashboard.superset_domain}`,
+        supersetDomain: domain,
         mountPoint: mountPoint,
         fetchGuestToken: () => {
           return Promise.resolve(this.dashboard.embed_token);
@@ -105,5 +107,13 @@ export class ShowDashboardComponent implements OnInit {
         iframe.style.height = '1000px';
       }
     }
+  }
+
+  getBaseSupersetDomain(domain: string): string {
+    if (domain.includes('https://')) {
+      return domain;
+    }
+
+    return `https://${domain}`;
   }
 }

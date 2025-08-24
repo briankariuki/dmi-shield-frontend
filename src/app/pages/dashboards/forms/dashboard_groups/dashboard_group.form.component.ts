@@ -17,11 +17,8 @@ import { DashboardGroup } from 'src/app/interfaces/IDashboard.model';
 export class DashboardGroupFormComponent implements OnInit, OnChanges {
   dashboardGroupForm!: FormGroup;
 
-  // groupName: null | string = null;
-  // groupDescription: null | string = null;
-  groupName: null | string = 'E-Bridge';
-  groupDescription: null | string =
-    'Contains dashboards to show data from e-bridge prediction models. Includes dashboards for respiratory and diarrhoeal diseases.';
+  groupName: null | string = null;
+  groupDescription: null | string = null;
 
   @Input() buttonLabel: string = 'Create';
   @Input() dashboardGroup: DashboardGroup | null;

@@ -35,8 +35,7 @@ html {
   font-size: 62.5%;
   overflow-x: hidden;
 }
-
-body {
+--main-blue body {
   background: var(--main-bg-color);
   color: var(--text-color);
 }
@@ -62,7 +61,6 @@ body {
   top: 8rem;
   left: 0;
   width: 100%;
-  padding: 2rem 9%;
   background: var(--main-blue);
   display: flex;
   justify-content: space-between;
@@ -301,9 +299,9 @@ mat-error {
   font-size: 18px;
 }
 
-section {
+/* section {
   padding: 10rem 9% 2rem;
-}
+} */
 
 .help-icon-box {
   display: flex;
@@ -384,7 +382,6 @@ section {
   background-color: white;
   padding: 10px 20px;
   font-size: 18px;
-  margin: 0 10px;
 }
 
 .scroll-button.left {
@@ -620,14 +617,14 @@ section {
   margin-left: 6px;
 }
 
-footer {
+/* footer {
   position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
   background-color: #f8f9fa;
   padding: 2rem 0;
-}
+} */
 
 .footer-top {
   background: var(--main-blue);

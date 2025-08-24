@@ -14,10 +14,6 @@ import { BreadCrumb } from 'src/app/models/Breadcrumb.model';
 export class BreadCrumbsComponent implements OnInit, OnChanges {
   @Input() breadcrumbs: BreadCrumb[] = [];
 
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    throw new Error('Method not implemented.');
-  }
+  ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges): void {}
 }

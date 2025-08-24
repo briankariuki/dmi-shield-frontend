@@ -4,14 +4,14 @@
       <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
         >Dashboard Name</mat-label
       >
-      <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-form-field appearance="fill" class="w-100" color="primary">
         <mat-label>Name</mat-label>
 
         <input matInput placeholder="" formControlName="name" />
 
-        <mat-error *ngIf="dashboardForm.get('name').hasError('required')">
-          Required
-        </mat-error>
+        @if (dashboardForm.get("name").hasError("required")) {
+          <mat-error> Required </mat-error>
+        }
       </mat-form-field>
     </div>
   </div>
@@ -21,17 +21,15 @@
       <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
         >Dashboard Description</mat-label
       >
-      <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-form-field appearance="fill" class="w-100" color="primary">
         <mat-label>Description</mat-label>
 
         <textarea matInput placeholder="" formControlName="description">
         </textarea>
 
-        <mat-error
-          *ngIf="dashboardForm.get('description').hasError('required')"
-        >
-          Required
-        </mat-error>
+        @if (dashboardForm.get("description").hasError("required")) {
+          <mat-error> Required </mat-error>
+        }
       </mat-form-field>
     </div>
   </div>
@@ -41,14 +39,14 @@
       <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
         >Superset Domain</mat-label
       >
-      <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-form-field appearance="fill" class="w-100" color="primary">
         <mat-label>Domain</mat-label>
 
         <input matInput placeholder="" formControlName="domain" />
 
-        <mat-error *ngIf="dashboardForm.get('domain').hasError('required')">
-          Required
-        </mat-error>
+        @if (dashboardForm.get("domain").hasError("required")) {
+          <mat-error> Required </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -56,16 +54,14 @@
       <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
         >Superset Dashboard Id</mat-label
       >
-      <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-form-field appearance="fill" class="w-100" color="primary">
         <mat-label>Dashboard ID</mat-label>
 
         <input matInput placeholder="" formControlName="dashboardId" />
 
-        <mat-error
-          *ngIf="dashboardForm.get('dashboardId').hasError('required')"
-        >
-          Required
-        </mat-error>
+        @if (dashboardForm.get("dashboardId").hasError("required")) {
+          <mat-error> Required </mat-error>
+        }
       </mat-form-field>
     </div>
   </div>
@@ -75,20 +71,18 @@
       <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
         >Dashboard Group</mat-label
       >
-      <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-form-field appearance="fill" class="w-100" color="primary">
         <mat-label>Group</mat-label>
 
         <mat-select formControlName="groupId">
-          <mat-option
-            [value]="group.id"
-            *ngFor="let group of dashboardGroups"
-            >{{ group.name }}</mat-option
-          >
+          @for (group of dashboardGroups; track group) {
+            <mat-option [value]="group.id">{{ group.name }}</mat-option>
+          }
         </mat-select>
 
-        <mat-error *ngIf="dashboardForm.get('groupId').hasError('required')">
-          Required
-        </mat-error>
+        @if (dashboardForm.get("groupId").hasError("required")) {
+          <mat-error> Required </mat-error>
+        }
       </mat-form-field>
     </div>
 
@@ -96,18 +90,18 @@
       <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
         >Authorized User Roles</mat-label
       >
-      <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-form-field appearance="fill" class="w-100" color="primary">
         <mat-label>Roles</mat-label>
 
         <mat-select multiple formControlName="roles">
-          <mat-option [value]="role" *ngFor="let role of roles">{{
-            role
-          }}</mat-option>
+          @for (role of roles; track role) {
+            <mat-option [value]="role">{{ role }}</mat-option>
+          }
         </mat-select>
 
-        <mat-error *ngIf="dashboardForm.get('roles').hasError('required')">
-          Required
-        </mat-error>
+        @if (dashboardForm.get("roles").hasError("required")) {
+          <mat-error> Required </mat-error>
+        }
       </mat-form-field>
     </div>
   </div>

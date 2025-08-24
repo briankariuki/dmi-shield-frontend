@@ -13,23 +13,19 @@
 .about-top {
   display: flex;
   flex-direction: column;
-  padding-top: 14rem;
-  padding-left: 9%;
-  padding-right: 9%;
 }
 
 .content {
   display: flex;
   justify-content: space-between;
   margin-top: 5rem;
-  padding-left: 9%;
-  padding-right: 9%;
+
   gap: 4rem;
 }
 
 .content-left {
   width: 50%;
-  background-color: #C1E1FB69;
+  background-color: #c1e1fb69;
   border-radius: 16px;
 }
 
@@ -42,9 +38,9 @@
 
 .content-right {
   width: 50%;
-  background-color: #F0F2F5;
+  background-color: #f0f2f5;
   border-radius: 16px;
-  padding: 0 1%
+  padding: 0 1%;
 }
 
 .accordion-container {
@@ -52,7 +48,7 @@
 }
 
 .accordion-header {
-  background-color: #C1E1FB69;
+  background-color: #c1e1fb69;
   padding: 4rem;
 }
 
@@ -75,7 +71,6 @@
 }
 
 @media (max-width: 1110px) {
-
   .about-top {
     display: flex;
     flex-direction: column;

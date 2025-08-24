@@ -22,6 +22,8 @@ export class FullComponent implements OnInit {
   private isContentWidthFixed = true;
   private isCollapsedWidthFixed = false;
   private htmlElement!: HTMLHtmlElement;
+  private headerElement!: HTMLElement;
+  headerHeight!: number;
 
   get isOver(): boolean {
     return this.isMobileScreen;
@@ -47,19 +49,12 @@ export class FullComponent implements OnInit {
   scrollBehavior() {
     const menuIcon = document.querySelector('#menu-icon') as HTMLElement;
     const navbar = document.querySelector('.navbar a') as HTMLElement;
-    const header = document.querySelector('.header') as HTMLElement;
+    const mainHeader = document.querySelector('#main-header') as HTMLElement;
+    this.headerHeight = mainHeader.clientHeight;
 
     menuIcon.onclick = () => {
       menuIcon.classList.toggle('bx-x');
       navbar.classList.toggle('active');
-    };
-
-    window.onscroll = () => {
-      if (window.scrollY > 50) {
-        header.classList.add('active-header');
-      } else {
-        header.classList.remove('active-header');
-      }
     };
   }
 

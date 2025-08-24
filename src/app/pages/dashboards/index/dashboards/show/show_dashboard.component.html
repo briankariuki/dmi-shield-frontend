@@ -1,34 +1,32 @@
-<div style="margin-top: 96px; padding-top: 2rem">
+<div class="w-full pt-4">
   <breadcrumbs [breadcrumbs]="this.breadcrumbs"></breadcrumbs>
 </div>
 
 <div
-  class="m-l-24 m-r-24"
-  style="margin-top: 20px; min-height: 100vh; padding: 2rem 9%"
+  class="w-screen min-h-[70vh] relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] pt-4"
 >
-  <mat-card class="composite-data">
-    <mat-progress-bar
-      *ngIf="this.ApiResponseStatus.processing"
-      mode="indeterminate"
-      style="position: absolute; top: 0; left: 0; right: 0"
-    ></mat-progress-bar>
-    <div
-      *ngIf="this.ApiResponseStatus.processing"
-      style="
-        position: absolute;
-        top: 3%;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.7);
-        z-index: 2;
-      "
-    ></div>
-    <div id="dashboard"></div>
-    <!-- <section class="frame-section">
-      <mat-card class="cardWithShadow">
-       
-      </mat-card>
-    </section> -->
-  </mat-card>
+  <div class="h-full w-[90%] max-w-screen-2xl mx-auto">
+    <mat-card>
+      @if (this.ApiResponseStatus.processing) {
+        <mat-progress-bar
+          mode="indeterminate"
+          style="position: absolute; top: 0; left: 0; right: 0"
+        ></mat-progress-bar>
+      }
+      @if (this.ApiResponseStatus.processing) {
+        <div
+          style="
+            position: absolute;
+            top: 3%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 2;
+          "
+        ></div>
+      }
+      <div id="dashboard"></div>
+    </mat-card>
+  </div>
 </div>

@@ -17,4 +17,5 @@ export type Dashboard = {
   status?: string;
   embed_token?: string;
   published_at?: Date;
+  dashboard_group?: DashboardGroup;
 };

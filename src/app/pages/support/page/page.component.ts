@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./page.component.scss'],
 })
 export class PageComponent {
+  supportEmail = 'support@shield.health.go.ke';
   shieldAccordion = [
     {
       id: 0,

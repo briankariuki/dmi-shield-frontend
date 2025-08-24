@@ -10,10 +10,10 @@ export const DashboardsRoutes: Routes = [
   {
     path: '',
     children: [
-      // {
-      //   path: '',
-      //   component: DashboardsComponent,
-      // },
+      {
+        path: '',
+        component: DashboardsComponent,
+      },
 
       {
         path: 'groups',

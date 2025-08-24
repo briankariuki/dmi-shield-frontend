@@ -33,19 +33,6 @@ User management, Integrated Dashboards, Upload of documents
       FILE_PATH: "",
       API_ENDPOINT: "https://localhost/api/v1/",
       SUMMARIZED_IFRAME_SOURCES: [],
-      SUPERSET: {
-        DOMAIN: '<Superset Domain>',
-        API_ENDPOINT: "<Superset API Endpoint>",
-        API_PROVIDER: "db",
-        USER_ADMINISTRATOR: {
-            USERNAME: "",
-            PASSWORD: ""
-        },
-        USER_GUEST: {
-            USERNAME: "guest",
-        },
-        DASHBOARDS: [],
-      }
 };
   ```
 

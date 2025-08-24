@@ -1,40 +1,30 @@
-<div
-  style="
-    position: sticky;
-    padding: 2rem 10%;
-    background-color: white;
-    border-bottom: 1px solid #dddddd;
-  "
->
-  <ol class="m-l-24 m-r-24" style="display: flex; align-items: center">
-    <li
-      style="display: flex; align-items: center"
-      *ngFor="let breadcrumb of breadcrumbs"
-    >
-      <a style="cursor: pointer">{{ breadcrumb.name }}</a>
-
-      <svg
-        class="shrink-0 mx-2 size-4 text-gray-400 dark:text-neutral-600"
-        style="
-          flex-shrink: 0;
-          width: 16px;
-          height: 16px;
-          color: #b8b8b8;
-          margin-right: 8px;
-          margin-left: 8px;
-        "
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+<div class="w-full border-b border-gray-200 px-2.5 py-6">
+  <ol class="flex items-center space-x-2 mx-auto max-w-screen-2xl">
+    @for (breadcrumb of breadcrumbs; track breadcrumb) {
+      <li
+        class="last:text-gray-600 text-gray-400 group [&:last-child>svg]:hidden"
+        style="display: flex; align-items: center"
       >
-        <path d="m9 18 6-6-6-6"></path>
-      </svg>
-    </li>
+        <a
+          [routerLink]="[breadcrumb.href]"
+          class="cursor-pointer group-hover:text-gray-600"
+          >{{ breadcrumb.name }}</a
+        >
+        <svg
+          class="shrink-0 mx-2 size-8 text-gray-400 dark:text-neutral-600"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m9 18 6-6-6-6"></path>
+        </svg>
+      </li>
+    }
   </ol>
 </div>

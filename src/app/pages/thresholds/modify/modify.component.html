@@ -1,25 +1,24 @@
-<div
-  class="m-l-24 m-r-24"
-  style="margin-top: 160px; min-height: 100vh; padding: 2rem 9%"
->
+<div class="m-l-24 m-r-24" style="margin-top: 160px; min-height: 100vh">
   <mat-card class="composite-data">
-    <mat-progress-bar
-      *ngIf="this.ApiResponseStatus.processing"
-      mode="indeterminate"
-      style="position: absolute; top: 0; left: 0; right: 0"
-    ></mat-progress-bar>
-    <div
-      *ngIf="this.ApiResponseStatus.processing"
-      style="
-        position: absolute;
-        top: 3%;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.7);
-        z-index: 2;
-      "
-    ></div>
+    @if (this.ApiResponseStatus.processing) {
+      <mat-progress-bar
+        mode="indeterminate"
+        style="position: absolute; top: 0; left: 0; right: 0"
+      ></mat-progress-bar>
+    }
+    @if (this.ApiResponseStatus.processing) {
+      <div
+        style="
+          position: absolute;
+          top: 3%;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 2;
+        "
+      ></div>
+    }
     <mat-card-header>
       <mat-card-title>
         <h3>Thresholds</h3>

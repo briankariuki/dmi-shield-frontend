@@ -17,6 +17,8 @@ import { ApiService } from 'src/app/services/api/api.service';
   styleUrls: ['./login.component.scss'],
 })
 export class AppSideLoginComponent implements OnInit {
+  supportEmail = 'support@shield.health.go.ke';
+
   hide: boolean = true;
   AuthUser: User = new User();
   UserFormControls: CompositeFormControls = {};

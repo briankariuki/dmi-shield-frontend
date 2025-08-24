@@ -16,6 +16,7 @@ export class ConfirmOtpComponent implements OnInit {
   hide: boolean = true;
   UserFormControls: CompositeFormControls = {};
   userData: VerifyOtpData;
+  supportEmail = 'support@shield.health.go.ke';
 
   constructor(
     private awareness: AwarenessService,

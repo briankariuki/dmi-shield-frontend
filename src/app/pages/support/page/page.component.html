@@ -1,35 +1,58 @@
 <div class="" style="padding: 5rem 9%; margin-top: 80px; min-height: 100vh">
   <div>
-    <p style="font-size: 32px; line-height: 30px; font-weight: 700; color: #35459C; padding: 2rem 0">
+    <p
+      style="
+        font-size: 32px;
+        line-height: 30px;
+        font-weight: 700;
+        color: #35459c;
+        padding: 2rem 0;
+      "
+    >
       Help &amp; Support
     </p>
   </div>
   <div class="icon-container">
     <div class="item">
-      <i class='bx bx-mobile icons'></i>
+      <i class="bx bx-mobile icons"></i>
       <div class="item-content">
-        <h2 style="font-weight: 800; font-size: 20px; line-height: 22px;">Call</h2>
-        <a href="tel:020-00000" style="font-size: 16px; line-height: 22px; font-weight: 600">020-00000</a>
+        <h2 style="font-weight: 800; font-size: 20px; line-height: 22px">
+          Call
+        </h2>
+        <a
+          href="tel:020-00000"
+          style="font-size: 16px; line-height: 22px; font-weight: 600"
+          >020-00000</a
+        >
       </div>
     </div>
     <div class="item">
-      <i class='bx bx-envelope icons'></i>
+      <i class="bx bx-envelope icons"></i>
       <div class="item-content">
-        <h2 style="font-weight: 800; font-size: 20px; line-height: 22px;">Email</h2>
-        <a href="mailto:support@shield.health.go.ke" style="font-size: 16px; line-height: 22px; font-weight: 600">support@shield.health.go.ke</a>
+        <h2 style="font-weight: 800; font-size: 20px; line-height: 22px">
+          Email
+        </h2>
+        <a
+          href="mailto:support@shield.health.go.ke"
+          style="font-size: 16px; line-height: 22px; font-weight: 600"
+          >{{ supportEmail }}</a
+        >
       </div>
     </div>
     <div class="item">
-      <i class='bx bx-map icons'></i>
+      <i class="bx bx-map icons"></i>
       <div class="item-content">
-        <h2 style="font-weight: 800; font-size: 20px; line-height: 22px;">Visit</h2>
-        <a style="font-size: 16px; line-height: 22px; font-weight: 600">MINISTRY OF HEALTH, Afya House, Cathedral
-          Road</a>
+        <h2 style="font-weight: 800; font-size: 20px; line-height: 22px">
+          Visit
+        </h2>
+        <a style="font-size: 16px; line-height: 22px; font-weight: 600"
+          >MINISTRY OF HEALTH, Afya House, Cathedral Road</a
+        >
       </div>
     </div>
   </div>
 
-  <div style="margin-top: 30px;">
+  <div style="margin-top: 30px">
     <div>
       <h2 class="m-b-24">FAQs for SHIELD:</h2>
       <div *ngFor="let data of shieldAccordion">
@@ -49,7 +72,7 @@
     </div>
   </div>
 
-  <div style=" margin-top: 20px;">
+  <div style="margin-top: 20px">
     <div>
       <h2 class="m-b-24">FAQs for ADAM:</h2>
       <div *ngFor="let data of adamAccordion">
@@ -68,5 +91,4 @@
       </div>
     </div>
   </div>
-
 </div>

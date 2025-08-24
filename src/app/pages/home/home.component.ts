@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   Component,
   ViewEncapsulation,
@@ -15,7 +15,14 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
 import { RouterModule } from '@angular/router';
 import { AwarenessService } from '../../services/awareness.service';
-import { config } from '../../config/config';
+
+type CardItems = {
+  imageUrl: string;
+  title: string;
+  description: string;
+  href: string;
+  buttonText: string;
+};
 
 @Component({
   selector: 'home-page',
@@ -30,7 +37,6 @@ import { config } from '../../config/config';
     MatCardModule,
     NgApexchartsModule,
     MatTableModule,
-    CommonModule,
     RouterModule,
     NgOptimizedImage,
   ],
@@ -40,12 +46,43 @@ export class HomeComponent implements OnInit {
   @ViewChild('viewMoreContent') targetElement: ElementRef;
   @ViewChild('cardContainer') cardContainer!: ElementRef;
   activeCardIndex = 0;
-  dashboards: string[];
+  cardItems: CardItems[] = [];
 
   constructor(public awareness: AwarenessService) {}
 
   ngOnInit() {
-    this.dashboards = config.SUPERSET.DASHBOARDS;
+    this.cardItems = [
+      {
+        imageUrl: 'assets/images/resources/dashboards-one.png',
+        title: 'Surveillance Dashboards',
+        description:
+          'View dashboards with surveillance data for diseases of public health concern.',
+        buttonText: 'View Dashboards',
+        href: '/dashboards',
+      },
+      {
+        imageUrl: 'assets/images/resources/upload-data2.png',
+        title: 'Upload Data',
+        description: 'Upload data into SHIELD.',
+        buttonText: 'Upload Data',
+        href: '/surveillance/composites',
+      },
+      {
+        imageUrl: 'assets/images/resources/surveillance3.png',
+        title: 'Surveillance Resources',
+        description: 'Find Surveillance resources here...',
+        buttonText: 'View Resources',
+        href: '/resources/composites',
+      },
+      {
+        imageUrl: 'assets/images/new_logo/card_ebrige.png',
+        title: 'E-Bridge',
+        description:
+          'Find predictive data analytic models for disease outbreaks here',
+        buttonText: 'View Dashboards',
+        href: '/dashboards',
+      },
+    ];
   }
 
   scrollToTarget() {

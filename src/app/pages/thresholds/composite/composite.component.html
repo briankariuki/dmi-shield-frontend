@@ -1,57 +1,56 @@
-<div style="margin-top: 128px; min-height: 100vh; padding: 2rem 9%">
+<div class="min-h-screen w-full pt-16">
   <mat-card class="composite-data">
-    <mat-progress-bar
-      *ngIf="this.ApiResponseStatus.processing"
-      mode="indeterminate"
-      style="position: absolute; top: 0; left: 0; right: 0"
-    ></mat-progress-bar>
-    <div
-      *ngIf="this.ApiResponseStatus.processing"
-      style="
-        position: absolute;
-        top: 3%;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.7);
-        z-index: 2;
-      "
-    ></div>
+    @if (this.ApiResponseStatus.processing) {
+      <mat-progress-bar
+        mode="indeterminate"
+        style="position: absolute; top: 0; left: 0; right: 0"
+      ></mat-progress-bar>
+    }
+    @if (this.ApiResponseStatus.processing) {
+      <div
+        style="
+          position: absolute;
+          top: 3%;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(255, 255, 255, 0.7);
+          z-index: 2;
+        "
+      ></div>
+    }
 
     <mat-card-header>
       <mat-card-title>Thresholds</mat-card-title>
       <span class="flex-1-auto"></span>
 
-      <a
-        *ngIf="
-          this.userRole === 'level2' || this.userRole === 'admin';
-          else spaceBetween
-        "
-        [routerLink]="['/thresholds/modify']"
-        mat-flat-button
-        class="view-button"
-        style="background: #222a69"
-      >
-        <span style="color: white"> Create new threshold </span>
-      </a>
-
-      <ng-template #spaceBetween>
+      @if (this.userRole === "level2" || this.userRole === "admin") {
+        <a
+          [routerLink]="['/thresholds/modify']"
+          mat-flat-button
+          class="view-button"
+          style="background: #222a69"
+        >
+          <span style="color: white"> Create new threshold </span>
+        </a>
+      } @else {
         <div style="height: 30px"></div>
-      </ng-template>
+      }
     </mat-card-header>
 
     <mat-card-content>
-      <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-form-field appearance="fill" class="w-100" color="primary">
         <mat-label>Search</mat-label>
 
         <input type="string" matInput (input)="onSearch($event)" />
       </mat-form-field>
 
-      <threshold-item
-        *ngFor="let threshold of thresholds"
-        [threshold]="threshold"
-        (deleteThreshold)="deleteThreshold($event)"
-      ></threshold-item>
+      @for (threshold of thresholds; track threshold) {
+        <threshold-item
+          [threshold]="threshold"
+          (deleteThreshold)="deleteThreshold($event)"
+        ></threshold-item>
+      }
 
       <mat-paginator
         [length]="page.count"

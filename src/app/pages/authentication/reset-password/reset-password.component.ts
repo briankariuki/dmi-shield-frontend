@@ -24,6 +24,7 @@ export class ResetPasswordComponent implements OnInit {
   confirmResetPassData: ConfirmResetPasswordData;
   showConfirmReset: boolean;
   confirmPasswordToken: string = '';
+  supportEmail = 'support@shield.health.go.ke';
 
   constructor(
     private activatedRoute: ActivatedRoute,

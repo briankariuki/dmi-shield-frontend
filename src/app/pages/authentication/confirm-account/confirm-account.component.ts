@@ -16,6 +16,7 @@ import { AwarenessService } from 'src/app/services/awareness.service';
 export class ConfirmAccountComponent implements OnInit {
   userData: ConfirmAccountData;
   confirmationToken: string;
+  supportEmail = 'support@shield.health.go.ke';
 
   constructor(
     private apiService: ApiService,
